@@ -74,11 +74,7 @@ const SocialButton = styled(Link)<LinkProps>({
   },
 });
 
-interface Props {
-  a?: any;
-}
-
-export const Footer: React.FC<Props> = () => {
+export const Footer: React.FC = () => {
   return (
     <Box
       sx={{
@@ -229,6 +225,7 @@ export const Footer: React.FC<Props> = () => {
         justifyContent='space-between'
         sx={{
           position: 'fixed',
+          zIndex: 5,
           bottom: 0,
           right: 0,
           left: 0,
@@ -237,12 +234,20 @@ export const Footer: React.FC<Props> = () => {
           p: '10px 16px',
         }}
       >
-        <Typography>Open in App</Typography>
-        <Button href='https://play.google.com/store/apps/details?id=org.acharyaprashant.apbooks'
-          startIcon={<DownloadIcon viewBox='0 0 16 16' sx={{backgroundColor: 'primary.light', height: 16, width: 16}} />}
+        <Typography sx={{ height: 40, lineHeight: '40px' }}>Open in App</Typography>
+        <Button
+          href='https://play.google.com/store/apps/details?id=org.acharyaprashant.apbooks'
+          startIcon={
+            <DownloadIcon
+              viewBox='0 0 16 16'
+              sx={{ backgroundColor: 'primary.light', height: 16, width: 16 }}
+            />
+          }
           sx={{ backgroundColor: 'primary.light', p: '10px 32px', borderRadius: '24px' }}
         >
-          <Typography sx={{color: '#fff', fontWeight: 500, fontSize: '14px'}}>Download App</Typography>
+          <Typography sx={{ color: '#fff', fontWeight: 500, fontSize: '14px' }}>
+            Download App
+          </Typography>
         </Button>
       </Stack>
     </Box>

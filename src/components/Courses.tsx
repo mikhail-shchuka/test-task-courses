@@ -20,11 +20,11 @@ export const Container = styled(Box)<BoxProps>(({ theme }) => ({
 }));
 
 interface Props {
-  a?: any;
+  courses: any;
 }
 
-export const Courses: React.FC<Props> = () => {
-  const number = 8;
+export const Courses: React.FC<Props> = ({ courses }) => {
+  const number = courses.length;
 
   return (
     <Box sx={{ mb: '48px' }}>
@@ -39,15 +39,9 @@ export const Courses: React.FC<Props> = () => {
         Courses ({number})
       </Typography>
       <Container>
-        <CoursesItem />
-        <CoursesItem />
-        <CoursesItem />
-        <CoursesItem />
-        <CoursesItem />
-        <CoursesItem />
-        <CoursesItem />
-        <CoursesItem />
-        <CoursesItem />
+        {courses.map((course: any, index: number) => (
+          <CoursesItem key={course.id} course={course} index={index} />
+        ))}
       </Container>
     </Box>
   );

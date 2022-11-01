@@ -88,14 +88,14 @@ const theme = createTheme({
         },
       },
     },
-    MuiIconButton:{
+    MuiIconButton: {
       styleOverrides: {
-        root:{
+        root: {
           '&:hover': {
             background: 'none',
           },
-        }
-      }
+        },
+      },
     },
     MuiButtonBase: {
       defaultProps: {

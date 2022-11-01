@@ -2,19 +2,19 @@ import { Box, styled, Typography } from '@mui/material';
 import { AdditionalCoursesItem } from './AdditionalCoursesItem';
 import { Container } from './Courses';
 
-const ContainerAdditional = styled(Container)(({theme}) => ({
+const ContainerAdditional = styled(Container)(({ theme }) => ({
   gap: '16px 0',
   [theme.breakpoints.up('sm')]: {
     gridTemplateColumns: '1fr 1fr',
     gap: '32px 0',
   },
-}))
+}));
 
 interface Props {
-  a?: any;
+  additionalCourses: any;
 }
 
-export const AdditionalCourses: React.FC<Props> = () => {
+export const AdditionalCourses: React.FC<Props> = ({ additionalCourses }) => {
   return (
     <Box>
       <Typography
@@ -28,10 +28,9 @@ export const AdditionalCourses: React.FC<Props> = () => {
         Other Helpful Courses
       </Typography>
       <ContainerAdditional>
-        <AdditionalCoursesItem />
-        <AdditionalCoursesItem />
-        <AdditionalCoursesItem />
-        <AdditionalCoursesItem />
+        {additionalCourses.map((course: any) => (
+          <AdditionalCoursesItem key={course.id} course={course} />
+        ))}
       </ContainerAdditional>
     </Box>
   );

@@ -4,28 +4,28 @@ import logo from '../images/ic_apsignature_hindi.png';
 import { FaceBookIcon, LinkedInIcon, TwitterIcon, WhatsAppIcon } from './CustomIcons';
 
 interface Props {
-  a?: any;
+  courseDetails: any;
 }
 
-export const CourseInfo: React.FC<Props> = () => {
-  const description =
-    'जब-जब समाज में धर्म के प्रति अनादर बढ़ा है और आम-आदमी की चेतना को पाखंड ने घेरा है, तब-तब संतों ने अपने वचनों से हमारे मन को शीतलता प्रदान की है और सामाजिक चेतना को शुद्ध किया है। इस श्रृंखला में आचार्य जी ने संत कबीरदास, तुलसीदास, पलटूदास, दादू दयाल, सहजोबाई, मलूकदास, दरियादास, रविदास आदि संतों की वाणी पर चर्चा की है। जानिए उनके वचनों की जीवन में सार्थकता को आचार्य प्रशांत के साथ इस आसान वीडियो कोर्स में।';
-
+export const CourseInfo: React.FC<Props> = ({ courseDetails }) => {
   const [view, setView] = useState(false);
   const theme = useTheme();
   const tablet = useMediaQuery(theme.breakpoints.up('sm'));
+  const image =
+    courseDetails.thumbnail.domain +
+    '/' +
+    courseDetails.thumbnail.basePath +
+    '/' +
+    courseDetails.thumbnail.qualities[1] +
+    '/' +
+    courseDetails.thumbnail.key;
 
   return (
-    <Stack sx={{ flexDirection: { xs: 'column', sm: 'row' }, mb: '32px' }}>
+    <Stack sx={{ flexDirection: { xs: 'column', sm: 'row' }, mb: '42px' }}>
       <Box sx={{ width: { xs: '100%', sm: '40%' } }}>
         <Box sx={{ aspectRatio: '16 / 9', position: 'relative', height: 'max-content' }}>
           <Box sx={{ width: 1, height: 1 }}>
-            <img
-              width='100%'
-              height='100%'
-              style={{ borderRadius: '4px' }}
-              src='https://cimg.acharyaprashant.org/images/img-4337ee73-d8a3-4c8b-951b-d09a5a6468d3/10/image.jpg'
-            />
+            <img width='100%' height='100%' style={{ borderRadius: '4px' }} src={image} />
           </Box>
           <Box
             sx={{
@@ -97,7 +97,7 @@ export const CourseInfo: React.FC<Props> = () => {
               lineHeight: '35px',
             }}
           >
-            संतों की सीख पर आधारित श्रृंखला
+            {courseDetails.subtitle}
           </Typography>
           <Typography
             sx={{
@@ -110,7 +110,9 @@ export const CourseInfo: React.FC<Props> = () => {
           >
             {!tablet ? (
               <>
-                {view ? description : description.split(' ').slice(0, 33).join(' ') + '...'}{' '}
+                {view
+                  ? courseDetails.description
+                  : courseDetails.description.split(' ').slice(0, 33).join(' ') + '...'}{' '}
                 <Typography
                   onClick={() => setView((view) => !view)}
                   component='span'
@@ -126,7 +128,7 @@ export const CourseInfo: React.FC<Props> = () => {
                 </Typography>
               </>
             ) : (
-              description
+              courseDetails.description
             )}
           </Typography>
         </Box>

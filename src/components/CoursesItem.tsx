@@ -10,10 +10,6 @@ import {
 } from '@mui/material';
 import { TypographyProps } from '@mui/system';
 
-interface Props {
-  course?: any;
-}
-
 const Container = styled(Stack)<StackProps>({
   flexGrow: 1,
   position: 'relative',
@@ -88,7 +84,7 @@ const Info = styled(Typography)<TypographyProps>({
 });
 
 const Language = styled(Typography)<TypographyProps>({
-  p: '1px 6px',
+  padding: '1px 6px',
   fontSize: '12px',
   color: 'rgb(51, 65, 85)',
   backgroundColor: 'rgb(199 230 248)',
@@ -101,22 +97,38 @@ const ButtonStyled = styled(Button)<ButtonProps>(({ theme }) => ({
   textTransform: 'uppercase',
   height: '30px',
   color: theme.palette.primary.light,
+  position: 'relative',
+  zIndex: 1,
+  '&:hover': {
+    color: theme.palette.primary.main,
+  }
 }));
 
-export const CoursesItem: React.FC<Props> = ({ course }) => {
+interface Props {
+  course: any;
+  index: number;
+}
+
+export const CoursesItem: React.FC<Props> = ({ course, index }) => {
+  const hours = Math.floor(course.courseHours);
+  const minutes = Math.round((course.courseHours - Math.floor(course.courseHours)) * 60);
+  const language = course.language[0].toUpperCase() + course.language.slice(1);
   return (
     <Container>
-      <CourseNumber>कोर्स 1</CourseNumber>
+      <CourseNumber>कोर्स {index + 1}</CourseNumber>
       <Box sx={{ mb: '8px' }}>
-        <Title>संत समागम परम सुख</Title>
-        <SubTitle>संतों के मुख्य दोहे पर आधारित</SubTitle>
-        <Info>2 hours 30 minutes</Info>
-        <Info sx={{ mb: '8px' }}>Contribution: ₹250</Info>
-        <Language>Hindi</Language>
+        <Title>{course.title}</Title>
+        <SubTitle>{course.subtitle}</SubTitle>
+        <Info>
+          {hours > 0 ? (hours > 1 ? `${hours} hours` : `${hours} hour`) : ''} {minutes}{' '}
+          {minutes > 1 ? 'minutes' : 'minute'}
+        </Info>
+        <Info sx={{ mb: '8px' }}>Contribution: ₹{course.amount}</Info>
+        <Language>{language}</Language>
       </Box>
       <Stack direction='row' alignItems='center' sx={{ pb: '16px' }}>
         <ButtonStyled sx={{ ml: '-8px' }}>Add to cart</ButtonStyled>
-        <Divider orientation='vertical' sx={{ height: 14 }} />
+        <Divider orientation='vertical' sx={{ height: 14, mx: '4px' }} />
         <ButtonStyled>Enrol</ButtonStyled>
       </Stack>
     </Container>

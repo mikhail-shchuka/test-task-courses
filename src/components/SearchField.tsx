@@ -11,8 +11,9 @@ import {
   OutlinedInputProps,
   styled,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CrossIconGradient, MarkIcon, SearchIcon } from './CustomIcons';
+import { FilterDialog } from './FilterDialog';
 
 const ButtonStyled = styled(Button)<ButtonProps>(({ theme }) => ({
   borderColor: 'rgb(226 232 239)',
@@ -73,17 +74,48 @@ const FormControlStyled = styled(FormControl)<FormControlProps>({
 
 export const SearchField: React.FC = () => {
   const [value, setValue] = useState('');
+  const [filter, setFilter] = useState('All');
+  const [hasModal, setHasModal] = useState(false);
+
+  const [tags, setTags] = useState(null);
+
+  useEffect(() => {
+    fetch('https://api.acharyaprashant.org/v2/legacy/courses/tags')
+      .then((res) => res.json())
+      .then((data) => setTags(data));
+  }, []);
+
   return (
     <Box
       display='flex'
-      sx={{ ml: '24px', maxWidth: 576, flexGrow: 1, boxShadow: '0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / .05)' }}
+      sx={{
+        ml: '24px',
+        maxWidth: 576,
+        flexGrow: 1,
+        boxShadow: '0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / .05)',
+      }}
     >
       <ButtonStyled
         variant='outlined'
         endIcon={<MarkIcon sx={{ width: 9, height: 6 }} viewBox='0 0 9 6' />}
+        onClick={() => {
+          setHasModal(true);
+        }}
+        sx={{ position: 'relative' }}
       >
-        All
+        {filter}
       </ButtonStyled>
+      {tags && (
+        <FilterDialog
+          tags={tags}
+          onClose={(value) => {
+            setFilter(value);
+            setHasModal(false);
+          }}
+          open={hasModal}
+          selectedValue='All'
+        />
+      )}
       <Divider orientation='vertical' flexItem />
       <FormControlStyled sx={{ height: 38, flexGrow: 1 }} variant='outlined'>
         <InputStyled

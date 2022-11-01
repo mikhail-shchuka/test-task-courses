@@ -19,7 +19,8 @@ import { useState } from 'react';
 import logo from '../images/ic_aplogo.png';
 import courses from '../images/ic_courses.png';
 import { Breadcrumb } from './Breadcrumb';
-import { LeftArrow, MenuIcon, PhoneIcon, SearchIcon } from './CustomIcons';
+import { LeftArrow, PhoneIcon, SearchIcon } from './CustomIcons';
+import DrawerRight from './DrawerRight';
 import { LangToggle } from './LangToggle';
 import { SearchField } from './SearchField';
 import { SearchFieldTablet } from './SearchFieldTablet';
@@ -89,9 +90,12 @@ const ButtonStyled = styled(Button)<ButtonProps>({
   minWidth: 'min-content',
 });
 
-export const Header: React.FC = () => {
+interface Props {
+  title: string;
+}
+
+export const Header: React.FC<Props> = ({ title }) => {
   const theme = useTheme();
-  const desktop = useMediaQuery(theme.breakpoints.up('md'));
   const tablet = useMediaQuery(theme.breakpoints.up('sm'));
   const [hasTabletSearch, setHasTabletSearch] = useState(false);
   const [hasTabletAnimation, setHasTabletAnimation] = useState(false);
@@ -137,7 +141,7 @@ export const Header: React.FC = () => {
               <PhoneIcon viewBox='0 0 16 16' sx={{ width: 16, color: '#fff' }} />
             </IconButton>
             {!tablet && <ButtonStyled>Donate</ButtonStyled>}
-            <IconButton
+            {/* <IconButton
               sx={{
                 p: '4px',
                 mr: '12px',
@@ -151,7 +155,8 @@ export const Header: React.FC = () => {
                   Menu
                 </Typography>
               )}
-            </IconButton>
+            </IconButton> */}
+            <DrawerRight />
           </Stack>
         </Toolbar>
       </NavAppBar>
@@ -210,26 +215,29 @@ export const Header: React.FC = () => {
       </SearchAppBar>
       {tablet ? (
         <>
-          <Breadcrumb />
+          <Breadcrumb point={title} />
           <Typography
             sx={{
               p: { xs: '8px 0 9px', sm: '16px 16px 13px', md: '16px 32px 14px' },
-              fontSize: {sm: '20px', md: '24px'},
+              fontSize: { sm: '20px', md: '24px' },
               fontFamily: 'Eczar',
               fontWeight: 600,
               lineHeight: '38px',
-              height: '36px'
+              height: '36px',
             }}
           >
-            संतवाणी
+            {title}
           </Typography>
         </>
       ) : (
         <Stack direction='row' alignItems='center' sx={{ p: '8px 16px' }}>
-          <IconButton href='https://acharyaprashant.org/en/courses' sx={{
-                p: '16px',
-                ml: '-16px',
-              }}>
+          <IconButton
+            href='https://acharyaprashant.org/en/courses'
+            sx={{
+              p: '16px',
+              ml: '-16px',
+            }}
+          >
             <LeftArrow
               viewBox='0 0 15 13'
               sx={{
