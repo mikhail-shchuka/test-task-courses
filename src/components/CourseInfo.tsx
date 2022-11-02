@@ -1,7 +1,24 @@
-import { Box, IconButton, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  IconButtonProps,
+  Stack,
+  styled,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { useState } from 'react';
 import logo from '../images/ic_apsignature_hindi.png';
 import { FaceBookIcon, LinkedInIcon, TwitterIcon, WhatsAppIcon } from './CustomIcons';
+
+const IconButtonStyled = styled(IconButton)<IconButtonProps>(({ theme }) => ({
+  '& .MuiSvgIcon-root': {
+    '&:hover': {
+      fill: theme.palette.primary.light,
+    },
+  },
+}));
 
 interface Props {
   courseDetails: any;
@@ -58,30 +75,30 @@ export const CourseInfo: React.FC<Props> = ({ courseDetails }) => {
               Share this series:
             </Typography>
             <Stack direction='row' sx={{ mt: '-4px' }}>
-              <IconButton sx={{ mr: '3px' }}>
+              <IconButtonStyled sx={{ mr: '3px' }}>
                 <WhatsAppIcon
                   viewBox='0 0 31 31'
                   sx={{ width: 28, height: 28, color: 'rgb(71, 85, 105)', ml: '-6.5px' }}
                 />
-              </IconButton>
-              <IconButton sx={{ mr: '3.5px' }}>
+              </IconButtonStyled>
+              <IconButtonStyled sx={{ mr: '3.5px' }}>
                 <TwitterIcon
                   viewBox='0 0 31 31'
                   sx={{ width: 28, height: 28, color: 'rgb(71, 85, 105)' }}
                 />
-              </IconButton>
-              <IconButton sx={{ mr: '4px' }}>
+              </IconButtonStyled>
+              <IconButtonStyled sx={{ mr: '4px' }}>
                 <FaceBookIcon
                   viewBox='0 0 31 31'
                   sx={{ width: 28, height: 28, color: 'rgb(71, 85, 105)' }}
                 />
-              </IconButton>
-              <IconButton>
+              </IconButtonStyled>
+              <IconButtonStyled>
                 <LinkedInIcon
                   viewBox='0 0 31 31'
                   sx={{ width: 28, height: 28, color: 'rgb(71, 85, 105)' }}
                 />
-              </IconButton>
+              </IconButtonStyled>
             </Stack>
           </Box>
         )}

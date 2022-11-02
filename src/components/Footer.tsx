@@ -10,6 +10,8 @@ import {
   StackProps,
   styled,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { TypographyProps } from '@mui/system';
 import logo from '../images/ic_aplogo.png';
@@ -75,6 +77,8 @@ const SocialButton = styled(Link)<LinkProps>({
 });
 
 export const Footer: React.FC = () => {
+  const theme = useTheme();
+  const desktop = useMediaQuery(theme.breakpoints.up('md'));
   return (
     <Box
       sx={{
@@ -220,36 +224,38 @@ export const Footer: React.FC = () => {
           <Item sx={{ fontSize: '14px', mb: 0, lineHeight: '20px' }}>Privacy Policy</Item>
         </Stack>
       </Stack>
-      <Stack
-        direction='row'
-        justifyContent='space-between'
-        sx={{
-          position: 'fixed',
-          zIndex: 5,
-          bottom: 0,
-          right: 0,
-          left: 0,
-          backgroundColor: 'rgb(255, 237, 213)',
-          height: 40,
-          p: '10px 16px',
-        }}
-      >
-        <Typography sx={{ height: 40, lineHeight: '40px' }}>Open in App</Typography>
-        <Button
-          href='https://play.google.com/store/apps/details?id=org.acharyaprashant.apbooks'
-          startIcon={
-            <DownloadIcon
-              viewBox='0 0 16 16'
-              sx={{ backgroundColor: 'primary.light', height: 16, width: 16 }}
-            />
-          }
-          sx={{ backgroundColor: 'primary.light', p: '10px 32px', borderRadius: '24px' }}
+      {!desktop && (
+        <Stack
+          direction='row'
+          justifyContent='space-between'
+          sx={{
+            position: 'fixed',
+            zIndex: 5,
+            bottom: 0,
+            right: 0,
+            left: 0,
+            backgroundColor: 'rgb(255, 237, 213)',
+            height: 40,
+            p: '10px 16px',
+          }}
         >
-          <Typography sx={{ color: '#fff', fontWeight: 500, fontSize: '14px' }}>
-            Download App
-          </Typography>
-        </Button>
-      </Stack>
+          <Typography sx={{ height: 40, lineHeight: '40px' }}>Open in App</Typography>
+          <Button
+            href='https://play.google.com/store/apps/details?id=org.acharyaprashant.apbooks'
+            startIcon={
+              <DownloadIcon
+                viewBox='0 0 16 16'
+                sx={{ backgroundColor: 'primary.light', height: 16, width: 16 }}
+              />
+            }
+            sx={{ backgroundColor: 'primary.light', p: '10px 32px', borderRadius: '24px' }}
+          >
+            <Typography sx={{ color: '#fff', fontWeight: 500, fontSize: '14px' }}>
+              Download App
+            </Typography>
+          </Button>
+        </Stack>
+      )}
     </Box>
   );
 };

@@ -2,9 +2,10 @@ import { Box, Stack, StackProps, styled, Typography, TypographyProps } from '@mu
 
 import logo from '../images/ic_apsignature_hindi.png';
 
-const Container = styled(Stack)<StackProps>({
+const Container = styled(Stack)<StackProps>(({ theme }) => ({
   flexDirection: 'row',
   flexGrow: 1,
+  maxWidth: '480px',
   position: 'relative',
   cursor: 'pointer',
   padding: '16px 16px 16px',
@@ -23,7 +24,14 @@ const Container = styled(Stack)<StackProps>({
     bottom: 0,
     borderBottom: '0.5px solid  rgb(202 213 225)',
   },
-});
+  [theme.breakpoints.up('md')]: {
+    '&:hover': {
+      borderRadius: '8px',
+      boxShadow:
+        '0 0 #000, 0 0 #0000, 0 0 #000, 0 0 #0000, 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1)',
+    },
+  },
+}));
 
 const Title = styled(Typography)<TypographyProps>({
   fontSize: '18px',
@@ -35,12 +43,15 @@ const Title = styled(Typography)<TypographyProps>({
   marginBottom: '3px',
 });
 
-const SubTitle = styled(Typography)<TypographyProps>({
+const SubTitle = styled(Typography)<TypographyProps>(({ theme }) => ({
   fontSize: '14px',
   lineHeight: '21px',
   color: 'rgb(71 85 105)',
   marginBottom: '4px',
-});
+  [theme.breakpoints.up('md')]: {
+    fontSize: '16px',
+  },
+}));
 
 const CourseNumber = styled(Typography)<TypographyProps>({
   fontSize: '14px',
@@ -140,8 +151,12 @@ export const AdditionalCoursesItem: React.FC<Props> = ({ course }) => {
       </Box>
 
       <Box sx={{ ml: '16px' }}>
-        <Title sx={{fontFamily: course.language === 'english' ? 'Inter' : 'Eczar'}}>{course.title}</Title>
-        <SubTitle sx={{fontFamily: course.language === 'english' ? 'Inter' : 'Eczar'}}>{course.subtitle}</SubTitle>
+        <Title sx={{ fontFamily: course.language === 'english' ? 'Inter' : 'Eczar' }}>
+          {course.title}
+        </Title>
+        <SubTitle sx={{ fontFamily: course.language === 'english' ? 'Inter' : 'Eczar' }}>
+          {course.subtitle}
+        </SubTitle>
         <CourseNumber>{course.coursesCount} Courses</CourseNumber>
       </Box>
     </Container>

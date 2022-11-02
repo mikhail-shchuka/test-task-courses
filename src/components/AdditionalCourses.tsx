@@ -8,6 +8,9 @@ const ContainerAdditional = styled(Container)(({ theme }) => ({
     gridTemplateColumns: '1fr 1fr',
     gap: '32px 0',
   },
+  [theme.breakpoints.up('md')]: {
+    gridTemplateColumns: '1fr 1fr 1fr',
+  },
 }));
 
 interface Props {
@@ -19,7 +22,7 @@ export const AdditionalCourses: React.FC<Props> = ({ additionalCourses }) => {
     <Box>
       <Typography
         sx={{
-          fontSize: '20px',
+          fontSize: { xs: '18px', sm: '20px' },
           fontWeight: 500,
           borderBottom: '1px solid rgb(202 213 225)',
           pb: '7px',

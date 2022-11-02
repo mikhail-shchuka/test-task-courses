@@ -30,7 +30,7 @@ export const Courses: React.FC<Props> = ({ courses }) => {
     <Box sx={{ mb: '48px' }}>
       <Typography
         sx={{
-          fontSize: '20px',
+          fontSize: { xs: '18px', sm: '20px' },
           fontWeight: 500,
           borderBottom: '1px solid rgb(202 213 225)',
           pb: '7px',

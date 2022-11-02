@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { TypographyProps } from '@mui/system';
 
-const Container = styled(Stack)<StackProps>({
+const Container = styled(Stack)<StackProps>(({ theme }) => ({
   flexGrow: 1,
   position: 'relative',
   cursor: 'pointer',
@@ -30,7 +30,14 @@ const Container = styled(Stack)<StackProps>({
     bottom: 0,
     borderBottom: '0.5px solid  rgb(202 213 225)',
   },
-});
+  [theme.breakpoints.up('md')]: {
+    '&:hover': {
+      borderRadius: '8px',
+      boxShadow:
+        '0 0 #000, 0 0 #0000, 0 0 #000, 0 0 #0000, 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1)',
+    },
+  },
+}));
 
 const CourseNumber = styled(Typography)<TypographyProps>({
   height: 24,
@@ -76,12 +83,16 @@ const SubTitle = styled(Typography)<TypographyProps>({
   marginBottom: '4px',
 });
 
-const Info = styled(Typography)<TypographyProps>({
+const Info = styled(Typography)<TypographyProps>(({ theme }) => ({
   fontSize: '12px',
   lineHeight: '16px',
   color: 'rgb(71 85 105)',
   marginBottom: '4px',
-});
+  [theme.breakpoints.up('md')]: {
+    fontSize: '14px',
+    marginBottom: '6px',
+  },
+}));
 
 const Language = styled(Typography)<TypographyProps>({
   padding: '1px 6px',
@@ -101,7 +112,7 @@ const ButtonStyled = styled(Button)<ButtonProps>(({ theme }) => ({
   zIndex: 1,
   '&:hover': {
     color: theme.palette.primary.main,
-  }
+  },
 }));
 
 interface Props {
